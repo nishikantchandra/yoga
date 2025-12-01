@@ -3,25 +3,36 @@ import { WebcamCanvas } from './components/WebcamCanvas';
 import { PoseSelector } from './components/PoseSelector';
 import { FeedbackPanel } from './components/FeedbackPanel';
 import { ControlsBar } from './components/ControlsBar';
+import { SessionReport } from './components/SessionReport';
 import { useWebcam } from './hooks/useWebcam';
 import { usePoseDetection } from './hooks/usePoseDetection';
 import { POSES } from './utils/poseReferences';
+import { MusicPlayer } from './components/MusicPlayer';
+import { SessionAnalyzer, captureCanvasImage, downloadSessionReport, type SessionCapture } from './utils/sessionAnalyzer';
 
 export default function App() {
   const [selectedPoseKey, setSelectedPoseKey] = useState<string>('Downdog');
   const [isRunning, setIsRunning] = useState(false);
   const [feedback, setFeedback] = useState<{ [joint: string]: boolean }>({});
   const [messages, setMessages] = useState<string[]>([]);
+  const [showReport, setShowReport] = useState(false);
+  const [currentScore, setCurrentScore] = useState(0);
 
   const { stream, error: cameraError, startCamera, stopCamera } = useWebcam();
   const { detector, isLoading: modelLoading, error: modelError } = usePoseDetection();
 
   const lastSpokenMessage = useRef<string>("");
   const lastSpokenTime = useRef<number>(0);
+  const sessionAnalyzer = useRef<SessionAnalyzer | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const lastCaptureScore = useRef<number>(0);
 
   const handleStart = async () => {
     await startCamera();
     setIsRunning(true);
+    sessionAnalyzer.current = new SessionAnalyzer(selectedPoseKey);
+    lastCaptureScore.current = 0;
   };
 
   const handleStop = () => {
@@ -29,13 +40,65 @@ export default function App() {
     setIsRunning(false);
     setFeedback({});
     setMessages([]);
+
+    // Generate and show session report
+    if (sessionAnalyzer.current) {
+      const sessionData = sessionAnalyzer.current.endSession();
+
+      // Only show report if there was actual activity
+      if (sessionData.totalFrames > 0) {
+        setShowReport(true);
+      }
+    }
   };
 
-  const handleFeedbackUpdate = (newFeedback: { [joint: string]: boolean }, newMessages: string[]) => {
+  const handleFeedbackUpdate = (
+    newFeedback: { [joint: string]: boolean },
+    newMessages: string[],
+    angles: { [joint: string]: number }
+  ) => {
     setFeedback(newFeedback);
     setMessages(newMessages);
 
-    // Audio feedback
+    // Calculate score
+    const totalJoints = Object.keys(newFeedback).length;
+    const alignedJoints = Object.values(newFeedback).filter(v => v === true).length;
+    const score = totalJoints > 0 ? Math.round((alignedJoints / totalJoints) * 100) : 0;
+    setCurrentScore(score);
+
+    // Track score in session analyzer
+    if (sessionAnalyzer.current) {
+      sessionAnalyzer.current.addScore(score);
+
+      // Auto-capture when score > 80 and hasn't captured at this score level recently
+      if (score >= 80 && score > lastCaptureScore.current + 5) {
+        if (videoRef.current && canvasRef.current) {
+          const imageData = captureCanvasImage(videoRef.current, canvasRef.current);
+
+          if (imageData) {
+            const capture: SessionCapture = {
+              timestamp: Date.now(),
+              pose: selectedPoseKey,
+              score,
+              imageData,
+              feedback: newFeedback,
+              angles
+            };
+
+            sessionAnalyzer.current.addCapture(capture);
+            lastCaptureScore.current = score;
+
+            // Visual feedback for capture
+            if ('speechSynthesis' in window) {
+              const utterance = new SpeechSynthesisUtterance("Great pose captured!");
+              window.speechSynthesis.speak(utterance);
+            }
+          }
+        }
+      }
+    }
+
+    // Audio feedback for corrections
     if (newMessages.length > 0) {
       const now = Date.now();
       const msg = newMessages[0];
@@ -50,6 +113,13 @@ export default function App() {
         lastSpokenMessage.current = msg;
         lastSpokenTime.current = now;
       }
+    }
+  };
+
+  const handleDownloadReport = () => {
+    if (sessionAnalyzer.current) {
+      const sessionData = sessionAnalyzer.current.getSessionData();
+      downloadSessionReport(sessionData);
     }
   };
 
@@ -78,8 +148,16 @@ export default function App() {
               YogaAI Assistant
             </h1>
           </div>
-          <div className="text-sm text-gray-400">
-            Client-side Privacy • No Video Uploaded
+          <div className="flex items-center gap-4">
+            {isRunning && currentScore >= 80 && (
+              <div className="flex items-center gap-2 bg-green-900/30 border border-green-700 rounded-lg px-3 py-1 animate-pulse">
+                <span className="w-2 h-2 bg-green-400 rounded-full"></span>
+                <span className="text-sm text-green-400 font-medium">Auto-Capture Active</span>
+              </div>
+            )}
+            <div className="text-sm text-gray-400">
+              Client-side Privacy • No Video Uploaded
+            </div>
           </div>
         </header>
 
@@ -108,6 +186,8 @@ export default function App() {
                 pose={currentPose}
                 isRunning={isRunning}
                 onFeedbackUpdate={handleFeedbackUpdate}
+                videoRef={videoRef}
+                canvasRef={canvasRef}
               />
             </div>
 
@@ -132,12 +212,12 @@ export default function App() {
               />
             </div>
 
-            {/* Reference Image Placeholder */}
-            <div className="h-48 bg-gray-800 rounded-xl border border-gray-700 flex items-center justify-center overflow-hidden relative group">
+            {/* Reference Image */}
+            <div className="h-64 bg-gray-800 rounded-xl border border-gray-700 flex items-center justify-center overflow-hidden relative group">
               <img
-                src={`/poses/${selectedPoseKey.toLowerCase()}.jpg`}
+                src={`${import.meta.env.BASE_URL}poses/${selectedPoseKey.toLowerCase()}.jpg`}
                 alt={currentPose.name}
-                className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                className="w-full h-full object-contain opacity-90 group-hover:opacity-100 transition-opacity"
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = 'https://placehold.co/600x400/1f2937/white?text=' + currentPose.name;
                 }}
@@ -159,6 +239,17 @@ export default function App() {
 
         </div>
       </div>
+
+      {/* Session Report Modal */}
+      {showReport && sessionAnalyzer.current && (
+        <SessionReport
+          sessionData={sessionAnalyzer.current.getSessionData()}
+          onClose={() => setShowReport(false)}
+          onDownload={handleDownloadReport}
+        />
+      )}
+
+      <MusicPlayer />
     </div>
   );
 }

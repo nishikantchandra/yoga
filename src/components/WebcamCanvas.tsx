@@ -9,21 +9,39 @@ interface WebcamCanvasProps {
     detector: poseDetection.PoseDetector | null;
     pose: PoseReference;
     isRunning: boolean;
-    onFeedbackUpdate: (feedback: { [joint: string]: boolean }, messages: string[]) => void;
+    onFeedbackUpdate: (
+        feedback: { [joint: string]: boolean },
+        messages: string[],
+        angles: { [joint: string]: number }
+    ) => void;
+    videoRef?: React.RefObject<HTMLVideoElement | null>;
+    canvasRef?: React.RefObject<HTMLCanvasElement | null>;
 }
 
-export function WebcamCanvas({ stream, detector, pose, isRunning, onFeedbackUpdate }: WebcamCanvasProps) {
-    const videoRef = useRef<HTMLVideoElement>(null);
-    const canvasRef = useRef<HTMLCanvasElement>(null);
+export function WebcamCanvas({
+    stream,
+    detector,
+    pose,
+    isRunning,
+    onFeedbackUpdate,
+    videoRef: externalVideoRef,
+    canvasRef: externalCanvasRef
+}: WebcamCanvasProps) {
+    const internalVideoRef = useRef<HTMLVideoElement>(null);
+    const internalCanvasRef = useRef<HTMLCanvasElement>(null);
     const requestRef = useRef<number>(0);
     const lastFeedbackTime = useRef<number>(0);
+
+    // Use external refs if provided, otherwise use internal refs
+    const videoRef = externalVideoRef || internalVideoRef;
+    const canvasRef = externalCanvasRef || internalCanvasRef;
 
     useEffect(() => {
         if (videoRef.current && stream) {
             videoRef.current.srcObject = stream;
             videoRef.current.play().catch(e => console.error("Error playing video:", e));
         }
-    }, [stream]);
+    }, [stream, videoRef]);
 
     const runPoseDetection = async () => {
         if (
@@ -83,7 +101,7 @@ export function WebcamCanvas({ stream, detector, pose, isRunning, onFeedbackUpda
                     // Update feedback (throttle to avoid UI flickering, e.g., every 200ms)
                     const now = Date.now();
                     if (now - lastFeedbackTime.current > 200) {
-                        onFeedbackUpdate(feedback, messages);
+                        onFeedbackUpdate(feedback, messages, angles);
                         lastFeedbackTime.current = now;
                     }
                 }
