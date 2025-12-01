@@ -136,10 +136,10 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gray-950 text-white font-sans selection:bg-blue-500 selection:text-white">
-      <div className="container mx-auto p-4 h-screen flex flex-col gap-4">
+      <div className="container mx-auto p-4 min-h-screen lg:h-screen flex flex-col gap-4">
 
         {/* Header */}
-        <header className="flex items-center justify-between py-2">
+        <header className="flex items-center justify-between py-2 shrink-0">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center font-bold text-lg">
               Y
@@ -150,23 +150,23 @@ export default function App() {
           </div>
           <div className="flex items-center gap-4">
             {isRunning && currentScore >= 80 && (
-              <div className="flex items-center gap-2 bg-green-900/30 border border-green-700 rounded-lg px-3 py-1 animate-pulse">
+              <div className="flex items-center gap-2 bg-green-900/30 border border-green-700 rounded-lg px-3 py-1 animate-pulse hidden sm:flex">
                 <span className="w-2 h-2 bg-green-400 rounded-full"></span>
                 <span className="text-sm text-green-400 font-medium">Auto-Capture Active</span>
               </div>
             )}
-            <div className="text-sm text-gray-400">
+            <div className="text-sm text-gray-400 hidden sm:block">
               Client-side Privacy • No Video Uploaded
             </div>
           </div>
         </header>
 
         {/* Main Content */}
-        <div className="flex-1 flex flex-col lg:flex-row gap-4 min-h-0">
+        <div className="flex-1 flex flex-col lg:flex-row gap-4 lg:min-h-0">
 
           {/* Left: Video Area (60%) */}
           <div className="lg:w-[60%] flex flex-col gap-4">
-            <div className="flex-1 bg-gray-900 rounded-2xl border border-gray-800 relative overflow-hidden">
+            <div className="flex-1 bg-gray-900 rounded-2xl border border-gray-800 relative overflow-hidden min-h-[50vh] lg:min-h-0">
               {modelLoading && (
                 <div className="absolute inset-0 flex items-center justify-center z-10 bg-gray-900/80">
                   <div className="flex flex-col items-center gap-3">
