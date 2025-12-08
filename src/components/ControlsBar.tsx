@@ -8,15 +8,15 @@ interface ControlsBarProps {
 
 export function ControlsBar({ isRunning, onStart, onStop, status, canStart }: ControlsBarProps) {
     return (
-        <div className="flex items-center justify-between glass p-4 rounded-xl shadow-lg">
+        <div className="flex items-center justify-between bg-white/80 backdrop-blur-sm border border-pink-200 p-4 rounded-xl shadow-lg shadow-pink-100">
             <div className="flex items-center gap-4">
                 {!isRunning ? (
                     <button
                         onClick={onStart}
                         disabled={!canStart}
                         className={`px-8 py-3 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 active:scale-95 ${canStart
-                            ? 'bg-gradient-to-r from-blue-600 via-blue-500 to-purple-600 hover:from-blue-500 hover:via-purple-500 hover:to-pink-500 text-white shadow-lg shadow-blue-900/50 glow-blue'
-                            : 'bg-gray-700 text-gray-400 cursor-not-allowed'
+                            ? 'bg-gradient-to-r from-pink-500 via-rose-500 to-red-400 hover:from-pink-400 hover:via-rose-400 hover:to-red-300 text-white shadow-lg shadow-pink-300'
+                            : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                             }`}
                     >
                         <span className="flex items-center gap-2">
@@ -30,7 +30,7 @@ export function ControlsBar({ isRunning, onStart, onStop, status, canStart }: Co
                 ) : (
                     <button
                         onClick={onStop}
-                        className="px-8 py-3 rounded-xl font-bold text-lg bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg shadow-red-900/50"
+                        className="px-8 py-3 rounded-xl font-bold text-lg bg-gradient-to-r from-red-500 to-rose-500 hover:from-red-400 hover:to-rose-400 text-white transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg shadow-red-200"
                     >
                         <span className="flex items-center gap-2">
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -45,23 +45,23 @@ export function ControlsBar({ isRunning, onStart, onStop, status, canStart }: Co
 
             <div className="flex items-center gap-6">
                 {/* Status Indicator */}
-                <div className="flex items-center gap-3 glass-light px-4 py-2 rounded-lg">
+                <div className="flex items-center gap-3 bg-pink-50 border border-pink-200 px-4 py-2 rounded-lg">
                     <div className={`w-3 h-3 rounded-full ${status === 'Detecting...'
                             ? 'bg-green-500 animate-pulse'
                             : status === 'Ready'
-                                ? 'bg-blue-500'
+                                ? 'bg-pink-500'
                                 : status.includes('Error')
                                     ? 'bg-red-500'
                                     : 'bg-amber-500 animate-pulse'
                         }`}></div>
                     <div className="flex flex-col">
-                        <span className="text-xs text-gray-500 uppercase tracking-wider">Status</span>
-                        <span className="text-white font-medium">{status}</span>
+                        <span className="text-xs text-pink-400 uppercase tracking-wider">Status</span>
+                        <span className="text-gray-700 font-medium">{status}</span>
                     </div>
                 </div>
 
                 {/* Help hint */}
-                <div className="hidden md:flex items-center gap-2 text-gray-500 text-sm">
+                <div className="hidden md:flex items-center gap-2 text-pink-500 text-sm">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>

@@ -174,20 +174,20 @@ export default function App() {
           : "Ready";
 
   return (
-    <div className="min-h-screen app-bg text-white font-sans selection:bg-purple-500 selection:text-white">
+    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-orange-50 text-gray-800 font-sans selection:bg-pink-400 selection:text-white">
       <div className="container mx-auto p-4 min-h-screen lg:h-screen flex flex-col gap-4">
 
         {/* Header */}
         <header className="flex items-center justify-between py-3 shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-xl flex items-center justify-center font-bold text-xl shadow-lg glow-purple">
+            <div className="w-10 h-10 bg-gradient-to-br from-pink-400 via-rose-500 to-red-400 rounded-xl flex items-center justify-center font-bold text-xl text-white shadow-lg shadow-pink-300">
               Y
             </div>
             <div>
-              <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
+              <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-rose-500 to-red-400">
                 YogaAI Assistant
               </h1>
-              <p className="text-xs text-gray-500 hidden sm:block">AI-Powered Pose Correction</p>
+              <p className="text-xs text-pink-600 hidden sm:block">AI-Powered Pose Correction</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
@@ -203,7 +203,7 @@ export default function App() {
                 <span className="text-sm text-blue-400 font-medium">Auto-Capture Active</span>
               </div>
             )}
-            <div className="text-sm text-gray-500 hidden lg:flex items-center gap-2">
+            <div className="text-sm text-pink-600 hidden lg:flex items-center gap-2">
               <span className="w-2 h-2 bg-green-500 rounded-full"></span>
               Privacy Protected
             </div>
@@ -215,13 +215,13 @@ export default function App() {
 
           {/* Left: Video Area (60%) */}
           <div className="lg:w-[60%] flex flex-col gap-4">
-            <div className="flex-1 glass rounded-2xl relative overflow-hidden min-h-[50vh] lg:min-h-0 shadow-2xl">
+            <div className="flex-1 bg-white/80 backdrop-blur-sm border border-pink-200 rounded-2xl relative overflow-hidden min-h-[50vh] lg:min-h-0 shadow-xl shadow-pink-100">
               {modelLoading && (
-                <div className="absolute inset-0 flex items-center justify-center z-10 bg-gray-900/90 backdrop-blur-sm">
+                <div className="absolute inset-0 flex items-center justify-center z-10 bg-white/90 backdrop-blur-sm">
                   <div className="flex flex-col items-center gap-4">
-                    <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-                    <p className="text-blue-400 font-medium text-lg">Loading MoveNet Thunder...</p>
-                    <p className="text-gray-500 text-sm">Preparing AI model for pose detection</p>
+                    <div className="w-12 h-12 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
+                    <p className="text-pink-600 font-medium text-lg">Loading MoveNet Thunder...</p>
+                    <p className="text-pink-400 text-sm">Preparing AI model for pose detection</p>
                   </div>
                 </div>
               )}
@@ -257,7 +257,7 @@ export default function App() {
           <div className="lg:w-[40%] flex flex-col gap-4">
 
             {/* Pose Selector */}
-            <div className="glass p-4 rounded-xl">
+            <div className="bg-white/80 backdrop-blur-sm border border-pink-200 p-4 rounded-xl shadow-lg shadow-pink-100">
               <PoseSelector
                 selectedPose={selectedPoseKey}
                 onSelect={setSelectedPoseKey}
@@ -266,7 +266,7 @@ export default function App() {
             </div>
 
             {/* Reference Image */}
-            <div className="h-56 glass rounded-xl flex items-center justify-center overflow-hidden relative group">
+            <div className="h-56 bg-white/80 backdrop-blur-sm border border-pink-200 rounded-xl flex items-center justify-center overflow-hidden relative group shadow-lg shadow-pink-100">
               <img
                 src={`${import.meta.env.BASE_URL}poses/${selectedPoseKey.toLowerCase()}.jpg`}
                 alt={currentPose.name}

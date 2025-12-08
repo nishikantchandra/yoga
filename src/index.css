@@ -57,115 +57,7 @@
   }
 }
 
-@keyframes gradient-shift {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-/* Main app background - Soft Off-White & Pink Theme */
-.app-bg {
-  background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 25%, #fbcfe8 50%, #fce7f3 75%, #fdf2f8 100%);
-  min-height: 100vh;
-  position: relative;
-}
-
-.app-bg::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at 10% 20%, rgba(244, 114, 182, 0.15) 0%, transparent 40%),
-    radial-gradient(ellipse at 90% 80%, rgba(236, 72, 153, 0.12) 0%, transparent 40%),
-    radial-gradient(ellipse at 50% 50%, rgba(251, 207, 232, 0.3) 0%, transparent 60%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.app-bg>* {
-  position: relative;
-  z-index: 1;
-}
-
-/* Glassmorphism utilities - Pink Theme */
-.glass {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(244, 114, 182, 0.2);
-  box-shadow: 0 8px 32px rgba(236, 72, 153, 0.1);
-}
-
-.glass-light {
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(244, 114, 182, 0.15);
-}
-
-/* Override text colors for light theme */
-.app-bg {
-  color: #4a044e;
-}
-
-.app-bg .text-white {
-  color: #581c87 !important;
-}
-
-.app-bg .text-gray-300,
-.app-bg .text-gray-400 {
-  color: #9d174d !important;
-}
-
-.app-bg .text-gray-500 {
-  color: #be185d !important;
-}
-
-/* Gradient backgrounds */
-.gradient-primary {
-  background: linear-gradient(135deg, #ec4899 0%, #f472b6 50%, #f9a8d4 100%);
-}
-
-.gradient-success {
-  background: linear-gradient(135deg, #10B981 0%, #34d399 100%);
-}
-
-.gradient-warning {
-  background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
-}
-
-.gradient-danger {
-  background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
-}
-
-.gradient-animated {
-  background: linear-gradient(270deg, #ec4899, #f472b6, #f9a8d4, #f472b6, #ec4899);
-  background-size: 400% 400%;
-  animation: gradient-shift 8s ease infinite;
-}
-
-/* Glow effects - Pink theme */
-.glow-blue {
-  box-shadow: 0 0 20px rgba(236, 72, 153, 0.4), 0 0 40px rgba(236, 72, 153, 0.2);
-}
-
-.glow-green {
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.5), 0 0 40px rgba(16, 185, 129, 0.3);
-}
-
-.glow-purple {
-  box-shadow: 0 0 25px rgba(236, 72, 153, 0.5), 0 0 50px rgba(244, 114, 182, 0.3);
-}
-
-/* Progress bar enhancements */
+/* Progress bar shimmer effect */
 .progress-bar-animated {
   position: relative;
   overflow: hidden;
@@ -219,61 +111,25 @@
   box-shadow: 0 15px 40px rgba(236, 72, 153, 0.15);
 }
 
-/* Icon animations */
-.icon-bounce {
-  transition: transform 0.2s ease;
+/* Glass effect for light theme */
+.glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(244, 114, 182, 0.2);
 }
 
-.icon-bounce:hover {
-  transform: scale(1.2);
+.glass-light {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
-/* Status indicator pulse */
-.status-pulse {
-  animation: pulse-glow 2s ease-in-out infinite;
+/* Glow effects */
+.glow-pink {
+  box-shadow: 0 0 20px rgba(236, 72, 153, 0.4), 0 0 40px rgba(236, 72, 153, 0.2);
 }
 
-/* Button overrides for light theme */
-.app-bg button {
-  color: white;
-}
-
-/* Header gradient text */
-.app-bg .bg-clip-text {
-  background: linear-gradient(135deg, #be185d 0%, #ec4899 50%, #f472b6 100%) !important;
-  -webkit-background-clip: text !important;
-}
-
-/* Fix specific elements for light theme */
-.app-bg .bg-gray-800,
-.app-bg .bg-gray-900 {
-  background: rgba(255, 255, 255, 0.6) !important;
-}
-
-.app-bg .bg-gray-700 {
-  background: rgba(251, 207, 232, 0.5) !important;
-}
-
-.app-bg .border-gray-700,
-.app-bg .border-gray-800 {
-  border-color: rgba(244, 114, 182, 0.3) !important;
-}
-
-/* Video container */
-.app-bg .bg-black {
-  background: #1f2937 !important;
-}
-
-/* Emerald/Green accents stay vibrant */
-.app-bg .text-emerald-400 {
-  color: #10b981 !important;
-}
-
-.app-bg .bg-emerald-500 {
-  background-color: #10b981 !important;
-}
-
-/* Red/Warning colors stay visible */
-.app-bg .text-red-400 {
-  color: #ef4444 !important;
+.glow-green {
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.5), 0 0 40px rgba(16, 185, 129, 0.3);
 }
