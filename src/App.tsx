@@ -174,7 +174,7 @@ export default function App() {
           : "Ready";
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 text-white font-sans selection:bg-blue-500 selection:text-white">
+    <div className="min-h-screen app-bg text-white font-sans selection:bg-purple-500 selection:text-white">
       <div className="container mx-auto p-4 min-h-screen lg:h-screen flex flex-col gap-4">
 
         {/* Header */}
