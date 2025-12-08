@@ -2,9 +2,12 @@
 
 /* Custom Animations */
 @keyframes pulse-glow {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
   }
+
   50% {
     box-shadow: 0 0 20px currentColor, 0 0 30px currentColor;
   }
@@ -14,15 +17,19 @@
   0% {
     transform: scale(1);
   }
+
   25% {
     transform: scale(1.1);
   }
+
   50% {
     transform: scale(1);
   }
+
   75% {
     transform: scale(1.05);
   }
+
   100% {
     transform: scale(1);
   }
@@ -32,15 +39,19 @@
   0% {
     background-position: -200% 0;
   }
+
   100% {
     background-position: 200% 0;
   }
 }
 
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-5px);
   }
@@ -50,28 +61,20 @@
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
 }
 
-@keyframes breathe {
-  0%, 100% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 0.5;
-  }
-}
-
-/* Main app background - Calming yoga theme */
+/* Main app background - Soft Off-White & Pink Theme */
 .app-bg {
-  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 25%, #312e81 50%, #1e1b4b 75%, #0f172a 100%);
-  background-size: 400% 400%;
-  animation: gradient-shift 20s ease infinite;
+  background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 25%, #fbcfe8 50%, #fce7f3 75%, #fdf2f8 100%);
+  min-height: 100vh;
   position: relative;
 }
 
@@ -79,61 +82,79 @@
   content: '';
   position: fixed;
   inset: 0;
-  background: 
-    radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 50%, rgba(236, 72, 153, 0.08) 0%, transparent 60%);
+  background:
+    radial-gradient(ellipse at 10% 20%, rgba(244, 114, 182, 0.15) 0%, transparent 40%),
+    radial-gradient(ellipse at 90% 80%, rgba(236, 72, 153, 0.12) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 50%, rgba(251, 207, 232, 0.3) 0%, transparent 60%);
   pointer-events: none;
   z-index: 0;
 }
 
-.app-bg > * {
+.app-bg>* {
   position: relative;
   z-index: 1;
 }
 
-/* Glassmorphism utilities */
+/* Glassmorphism utilities - Pink Theme */
 .glass {
-  background: rgba(30, 27, 75, 0.6);
+  background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(139, 92, 246, 0.2);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(244, 114, 182, 0.2);
+  box-shadow: 0 8px 32px rgba(236, 72, 153, 0.1);
 }
 
 .glass-light {
-  background: rgba(139, 92, 246, 0.08);
+  background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(139, 92, 246, 0.15);
+  border: 1px solid rgba(244, 114, 182, 0.15);
+}
+
+/* Override text colors for light theme */
+.app-bg {
+  color: #4a044e;
+}
+
+.app-bg .text-white {
+  color: #581c87 !important;
+}
+
+.app-bg .text-gray-300,
+.app-bg .text-gray-400 {
+  color: #9d174d !important;
+}
+
+.app-bg .text-gray-500 {
+  color: #be185d !important;
 }
 
 /* Gradient backgrounds */
 .gradient-primary {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+  background: linear-gradient(135deg, #ec4899 0%, #f472b6 50%, #f9a8d4 100%);
 }
 
 .gradient-success {
-  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  background: linear-gradient(135deg, #10B981 0%, #34d399 100%);
 }
 
 .gradient-warning {
-  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
 }
 
 .gradient-danger {
-  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+  background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
 }
 
 .gradient-animated {
-  background: linear-gradient(270deg, #6366f1, #8b5cf6, #a855f7, #ec4899, #8b5cf6, #6366f1);
+  background: linear-gradient(270deg, #ec4899, #f472b6, #f9a8d4, #f472b6, #ec4899);
   background-size: 400% 400%;
   animation: gradient-shift 8s ease infinite;
 }
 
-/* Glow effects */
+/* Glow effects - Pink theme */
 .glow-blue {
-  box-shadow: 0 0 20px rgba(99, 102, 241, 0.5), 0 0 40px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 0 20px rgba(236, 72, 153, 0.4), 0 0 40px rgba(236, 72, 153, 0.2);
 }
 
 .glow-green {
@@ -141,7 +162,7 @@
 }
 
 .glow-purple {
-  box-shadow: 0 0 25px rgba(139, 92, 246, 0.6), 0 0 50px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 0 25px rgba(236, 72, 153, 0.5), 0 0 50px rgba(244, 114, 182, 0.3);
 }
 
 /* Progress bar enhancements */
@@ -153,16 +174,8 @@
 .progress-bar-animated::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.3),
-    transparent
-  );
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }
@@ -176,24 +189,24 @@
   animation: float 3s ease-in-out infinite;
 }
 
-/* Smooth scrollbar */
+/* Smooth scrollbar - Pink theme */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(30, 27, 75, 0.5);
+  background: rgba(253, 242, 248, 0.8);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(139, 92, 246, 0.4);
+  background: rgba(244, 114, 182, 0.5);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(139, 92, 246, 0.6);
+  background: rgba(236, 72, 153, 0.7);
 }
 
 /* Card hover effects */
@@ -203,7 +216,7 @@
 
 .card-hover:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 40px rgba(139, 92, 246, 0.2);
+  box-shadow: 0 15px 40px rgba(236, 72, 153, 0.15);
 }
 
 /* Icon animations */
@@ -220,22 +233,47 @@
   animation: pulse-glow 2s ease-in-out infinite;
 }
 
-/* Button enhancements */
-.btn-primary {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-  transition: all 0.3s ease;
+/* Button overrides for light theme */
+.app-bg button {
+  color: white;
 }
 
-.btn-primary:hover {
-  background: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
-  box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
-  transform: translateY(-1px);
+/* Header gradient text */
+.app-bg .bg-clip-text {
+  background: linear-gradient(135deg, #be185d 0%, #ec4899 50%, #f472b6 100%) !important;
+  -webkit-background-clip: text !important;
 }
 
-/* Breathing circle decoration */
-.breathing-circle {
-  position: fixed;
-  border-radius: 50%;
-  pointer-events: none;
-  animation: breathe 4s ease-in-out infinite;
+/* Fix specific elements for light theme */
+.app-bg .bg-gray-800,
+.app-bg .bg-gray-900 {
+  background: rgba(255, 255, 255, 0.6) !important;
+}
+
+.app-bg .bg-gray-700 {
+  background: rgba(251, 207, 232, 0.5) !important;
+}
+
+.app-bg .border-gray-700,
+.app-bg .border-gray-800 {
+  border-color: rgba(244, 114, 182, 0.3) !important;
+}
+
+/* Video container */
+.app-bg .bg-black {
+  background: #1f2937 !important;
+}
+
+/* Emerald/Green accents stay vibrant */
+.app-bg .text-emerald-400 {
+  color: #10b981 !important;
+}
+
+.app-bg .bg-emerald-500 {
+  background-color: #10b981 !important;
+}
+
+/* Red/Warning colors stay visible */
+.app-bg .text-red-400 {
+  color: #ef4444 !important;
 }
