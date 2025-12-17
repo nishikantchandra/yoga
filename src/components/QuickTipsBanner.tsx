@@ -58,7 +58,6 @@ const YOGA_TIPS = [
 
 export function QuickTipsBanner({ className = '' }: QuickTipsBannerProps) {
     const [currentTipIndex, setCurrentTipIndex] = useState(0);
-    const [isExpanded, setIsExpanded] = useState(false);
 
     const currentTip = YOGA_TIPS[currentTipIndex];
 

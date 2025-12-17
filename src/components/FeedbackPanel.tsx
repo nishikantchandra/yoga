@@ -44,7 +44,6 @@ export function FeedbackPanel({
     bestScore,
     isNewBest = false
 }: FeedbackPanelProps) {
-    const [showTip, setShowTip] = useState(false);
     const [currentTip, setCurrentTip] = useState(0);
     const [elapsedSeconds, setElapsedSeconds] = useState(0);
 
@@ -137,8 +136,8 @@ export function FeedbackPanel({
                         <span>🎯</span> Alignment Check
                     </h3>
                     <span className={`text-xs font-bold px-2 py-1 rounded-full ${alignedCount === totalJoints
-                            ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400'
-                            : 'bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400'
+                        ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400'
+                        : 'bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400'
                         }`}>
                         {alignedCount}/{totalJoints}
                     </span>
@@ -155,19 +154,19 @@ export function FeedbackPanel({
                                 initial={{ opacity: 0, x: -10 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 className={`flex items-center gap-3 p-2.5 rounded-lg transition-all ${isAligned
-                                        ? 'bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800'
-                                        : 'bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800'
+                                    ? 'bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800'
+                                    : 'bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800'
                                     }`}
                             >
                                 <div className={`w-6 h-6 rounded-full flex items-center justify-center text-sm ${isAligned
-                                        ? 'bg-emerald-500 text-white'
-                                        : 'bg-rose-500 text-white'
+                                    ? 'bg-emerald-500 text-white'
+                                    : 'bg-rose-500 text-white'
                                     }`}>
                                     {isAligned ? '✓' : '!'}
                                 </div>
                                 <span className={`flex-1 font-medium text-sm ${isAligned
-                                        ? 'text-emerald-700 dark:text-emerald-400'
-                                        : 'text-rose-700 dark:text-rose-400'
+                                    ? 'text-emerald-700 dark:text-emerald-400'
+                                    : 'text-rose-700 dark:text-rose-400'
                                     }`}>
                                     {displayName}
                                 </span>
