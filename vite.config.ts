@@ -4,5 +4,6 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/neural-yoga-present/',
+  // use relative base path for maximum compatibility
+  base: './',
 })

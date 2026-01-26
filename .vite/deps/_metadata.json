@@ -2,7 +2,99 @@
   "hash": "1090d16e",
   "configHash": "4fb4a297",
   "lockfileHash": "621ad6f7",
-  "browserHash": "41bec5ae",
-  "optimized": {},
-  "chunks": {}
+  "browserHash": "b81543bf",
+  "optimized": {
+    "react/jsx-dev-runtime": {
+      "src": "../../node_modules/react/jsx-dev-runtime.js",
+      "file": "react_jsx-dev-runtime.js",
+      "fileHash": "6b2f9385",
+      "needsInterop": true
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "a6d80552",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "be4a37d8",
+      "needsInterop": true
+    },
+    "framer-motion": {
+      "src": "../../node_modules/framer-motion/dist/es/index.mjs",
+      "file": "framer-motion.js",
+      "fileHash": "7120cda8",
+      "needsInterop": false
+    },
+    "@tensorflow-models/pose-detection": {
+      "src": "../../node_modules/@tensorflow-models/pose-detection/dist/pose-detection.esm.js",
+      "file": "@tensorflow-models_pose-detection.js",
+      "fileHash": "d6b9a35e",
+      "needsInterop": false
+    },
+    "@tensorflow/tfjs-core": {
+      "src": "../../node_modules/@tensorflow/tfjs-core/dist/index.js",
+      "file": "@tensorflow_tfjs-core.js",
+      "fileHash": "eaac4e20",
+      "needsInterop": false
+    },
+    "@tensorflow/tfjs-backend-webgl": {
+      "src": "../../node_modules/@tensorflow/tfjs-backend-webgl/dist/index.js",
+      "file": "@tensorflow_tfjs-backend-webgl.js",
+      "fileHash": "6abee7c5",
+      "needsInterop": false
+    },
+    "canvas-confetti": {
+      "src": "../../node_modules/canvas-confetti/dist/confetti.module.mjs",
+      "file": "canvas-confetti.js",
+      "fileHash": "1d669a79",
+      "needsInterop": false
+    },
+    "recharts": {
+      "src": "../../node_modules/recharts/es6/index.js",
+      "file": "recharts.js",
+      "fileHash": "7ec511c3",
+      "needsInterop": false
+    },
+    "html2canvas": {
+      "src": "../../node_modules/html2canvas/dist/html2canvas.esm.js",
+      "file": "html2canvas.js",
+      "fileHash": "c4805fcd",
+      "needsInterop": false
+    },
+    "jspdf": {
+      "src": "../../node_modules/jspdf/dist/jspdf.es.min.js",
+      "file": "jspdf.js",
+      "fileHash": "449d9851",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "purify.es-DJHA3DID": {
+      "file": "purify__es-DJHA3DID.js"
+    },
+    "index.es-XP6DQISA": {
+      "file": "index__es-XP6DQISA.js"
+    },
+    "chunk-SITVF2AJ": {
+      "file": "chunk-SITVF2AJ.js"
+    },
+    "chunk-KP7BIHBJ": {
+      "file": "chunk-KP7BIHBJ.js"
+    },
+    "chunk-ULSRCYB6": {
+      "file": "chunk-ULSRCYB6.js"
+    },
+    "chunk-47JP6LEW": {
+      "file": "chunk-47JP6LEW.js"
+    },
+    "chunk-KYCYY53Z": {
+      "file": "chunk-KYCYY53Z.js"
+    },
+    "chunk-G3PMV62Z": {
+      "file": "chunk-G3PMV62Z.js"
+    }
+  }
 }

@@ -241,13 +241,13 @@ export default function App() {
         onClose={() => setCurrentAchievement(null)}
       />
 
-      <div className="container mx-auto p-4 min-h-screen lg:h-screen flex flex-col gap-4">
+      <div className="max-w-7xl mx-auto p-4 min-h-screen flex flex-col">
 
         {/* Header */}
         <motion.header
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-center justify-between py-3 shrink-0"
+          className="flex items-center justify-between py-3 mb-4"
         >
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-gradient-to-br from-pink-400 via-rose-500 to-red-400 rounded-xl flex items-center justify-center font-bold text-xl text-white shadow-lg shadow-pink-300 dark:shadow-pink-900">
@@ -261,11 +261,8 @@ export default function App() {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            {/* Streak Counter */}
+          <div className="flex items-center gap-3 flex-wrap justify-end">
             <StreakCounter />
-
-            {/* Progress Dashboard Button */}
             <button
               onClick={() => setShowDashboard(true)}
               className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/80 dark:bg-gray-800/80 border border-pink-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-pink-50 dark:hover:bg-gray-700 transition-all"
@@ -273,31 +270,11 @@ export default function App() {
               <span className="text-lg">📊</span>
               <span className="font-medium text-sm hidden sm:inline">Progress</span>
             </button>
-
-            {/* Breathing Guide */}
             <BreathingGuide
               isActive={isBreathingActive}
               onToggle={() => setIsBreathingActive(!isBreathingActive)}
             />
-
-            {/* Dark Mode Toggle */}
             <DarkModeToggle />
-
-            {/* Status indicators */}
-            {isRunning && bestScore >= 80 && (
-              <div className="flex items-center gap-2 bg-emerald-500/20 dark:bg-emerald-900/30 border border-emerald-500/50 rounded-xl px-4 py-2 hidden sm:flex">
-                <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
-                <span className="text-sm text-emerald-600 dark:text-emerald-400 font-medium">Best: {bestScore}%</span>
-              </div>
-            )}
-
-            {isRunning && currentScore >= 80 && (
-              <div className="flex items-center gap-2 bg-blue-500/20 dark:bg-blue-900/30 border border-blue-500/50 rounded-xl px-4 py-2 animate-pulse hidden md:flex">
-                <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
-                <span className="text-sm text-blue-600 dark:text-blue-400 font-medium">Auto-Capture Active</span>
-              </div>
-            )}
-
             <div className="text-sm text-pink-600 dark:text-pink-400 hidden lg:flex items-center gap-2">
               <span className="w-2 h-2 bg-green-500 rounded-full"></span>
               Privacy Protected
@@ -305,17 +282,17 @@ export default function App() {
           </div>
         </motion.header>
 
-        {/* Main Content */}
-        <div className="flex-1 flex flex-col lg:flex-row gap-4 lg:min-h-0">
+        {/* Main Content - Grid Layout */}
+        <div className="flex-1 grid grid-cols-1 lg:grid-cols-5 gap-4">
 
-          {/* Left: Video Area (60%) */}
+          {/* Left: Video Area (3/5 = 60%) */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.1 }}
-            className="lg:w-[60%] flex flex-col gap-4"
+            className="lg:col-span-3 flex flex-col gap-4"
           >
-            <div className="flex-1 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-pink-200 dark:border-gray-700 rounded-2xl relative overflow-hidden min-h-[50vh] lg:min-h-0 shadow-xl shadow-pink-100 dark:shadow-none">
+            <div className="flex-1 min-h-[400px] bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-pink-200 dark:border-gray-700 rounded-2xl relative overflow-hidden shadow-xl shadow-pink-100 dark:shadow-none">
               {modelLoading && (
                 <div className="absolute inset-0 flex items-center justify-center z-10 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm">
                   <div className="flex flex-col items-center gap-4">
@@ -353,37 +330,33 @@ export default function App() {
             />
           </motion.div>
 
-          {/* Right: Feedback & Reference (40%) */}
+          {/* Right: Feedback & Reference (2/5 = 40%) */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
-            className="lg:w-[40%] flex flex-col gap-4"
+            className="lg:col-span-2 flex flex-col gap-4"
           >
-
-            {/* Pose Selector */}
-            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-pink-200 dark:border-gray-700 p-4 rounded-xl shadow-lg shadow-pink-100 dark:shadow-none">
-              <PoseSelector
-                selectedPose={selectedPoseKey}
-                onSelect={setSelectedPoseKey}
-                disabled={isRunning}
-              />
-            </div>
-
-            {/* Reference Image */}
-            <div className="h-56 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-pink-200 dark:border-gray-700 rounded-xl flex items-center justify-center overflow-hidden relative group shadow-lg shadow-pink-100 dark:shadow-none">
-              <img
-                src={`${import.meta.env.BASE_URL}poses/${selectedPoseKey.toLowerCase()}.jpg`}
-                alt={currentPose.name}
-                className="w-full h-full object-contain opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-105"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = 'https://placehold.co/600x400/1f2937/white?text=' + currentPose.name;
-                }}
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-3">
-                <p className="text-center text-sm font-medium text-white">Reference: {currentPose.name}</p>
-              </div>
-            </div>
+            {/* Feedback Panel - Show prominently at top when running */}
+            <AnimatePresence>
+              {isRunning && (
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  className="shrink-0"
+                >
+                  <FeedbackPanel
+                    pose={currentPose}
+                    feedback={feedback}
+                    messages={messages}
+                    currentScore={smoothedScore}
+                    bestScore={bestScore}
+                    isNewBest={isNewBest}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {/* Pose Hold Timer - Only show when running */}
             <AnimatePresence>
@@ -392,6 +365,7 @@ export default function App() {
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
+                  className="shrink-0"
                 >
                   <PoseHoldTimer
                     isAligned={smoothedScore >= 80}
@@ -402,17 +376,45 @@ export default function App() {
               )}
             </AnimatePresence>
 
-            {/* Feedback Panel */}
-            <div className="flex-1 min-h-0">
-              <FeedbackPanel
-                pose={currentPose}
-                feedback={feedback}
-                messages={messages}
-                currentScore={smoothedScore}
-                bestScore={bestScore}
-                isNewBest={isNewBest}
+            {/* Pose Selector - Hide on mobile when running */}
+            {!isRunning && (
+              <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-pink-200 dark:border-gray-700 p-4 rounded-xl shadow-lg shadow-pink-100 dark:shadow-none shrink-0">
+                <PoseSelector
+                  selectedPose={selectedPoseKey}
+                  onSelect={setSelectedPoseKey}
+                  disabled={isRunning}
+                />
+              </div>
+            )}
+
+            {/* Reference Image - Smaller when running */}
+            <div className={`${isRunning ? 'h-32' : 'h-48'} bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-pink-200 dark:border-gray-700 rounded-xl flex items-center justify-center overflow-hidden relative group shadow-lg shadow-pink-100 dark:shadow-none transition-all duration-300 shrink-0`}>
+              <img
+                src={`${import.meta.env.BASE_URL}poses/${selectedPoseKey.toLowerCase()}.jpg`}
+                alt={currentPose.name}
+                className="w-full h-full object-contain opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-105"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = 'https://placehold.co/600x400/1f2937/white?text=' + currentPose.name;
+                }}
               />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-2">
+                <p className="text-center text-xs font-medium text-white">Reference: {currentPose.name}</p>
+              </div>
             </div>
+
+            {/* Show Feedback Panel at bottom when NOT running */}
+            {!isRunning && (
+              <div className="flex-1 min-h-0 overflow-hidden">
+                <FeedbackPanel
+                  pose={currentPose}
+                  feedback={feedback}
+                  messages={messages}
+                  currentScore={smoothedScore}
+                  bestScore={bestScore}
+                  isNewBest={isNewBest}
+                />
+              </div>
+            )}
           </motion.div>
 
         </div>
