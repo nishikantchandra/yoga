@@ -26,7 +26,6 @@ export default function App() {
   const [feedback, setFeedback] = useState<{ [joint: string]: boolean }>({});
   const [messages, setMessages] = useState<string[]>([]);
   const [showReport, setShowReport] = useState(false);
-  const [currentScore, setCurrentScore] = useState(0);
   const [smoothedScore, setSmoothedScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [isNewBest, setIsNewBest] = useState(false);
@@ -52,7 +51,6 @@ export default function App() {
   const handleStart = async () => {
     await startCamera();
     setIsRunning(true);
-    setCurrentScore(0);
     setSmoothedScore(0);
     setBestScore(0);
     setIsNewBest(false);
@@ -125,7 +123,6 @@ export default function App() {
     const totalJoints = Object.keys(newFeedback).length;
     const alignedJoints = Object.values(newFeedback).filter(v => v === true).length;
     const rawScore = totalJoints > 0 ? Math.round((alignedJoints / totalJoints) * 100) : 0;
-    setCurrentScore(rawScore);
 
     // Apply Exponential Moving Average for display smoothing (current score bar)
     const alpha = 0.3; // Smoothing factor for display
