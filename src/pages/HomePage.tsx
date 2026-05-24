@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useHashRoute } from '../hooks/useHashRoute';
 import { DarkModeToggle } from '../components/DarkModeToggle';
+import { UserMenu } from '../components/auth/UserMenu';
 
 interface ModeCard {
     id: 'practice' | 'studio' | 'dashboard';
@@ -94,7 +95,10 @@ export function HomePage() {
                             <p className="text-xs text-pink-600 dark:text-pink-400">AI-Powered Yoga Platform</p>
                         </div>
                     </div>
-                    <DarkModeToggle />
+                    <div className="flex items-center gap-3">
+                        <UserMenu />
+                        <DarkModeToggle />
+                    </div>
                 </header>
 
                 {/* Hero */}

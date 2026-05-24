@@ -20,6 +20,9 @@ import { AchievementToast, checkAchievements, type Achievement } from '../compon
 import { PoseHoldTimer } from '../components/PoseHoldTimer';
 import { ProgressDashboard, saveSessionToStats } from '../components/ProgressDashboard';
 import { useHashRoute } from '../hooks/useHashRoute';
+import { saveSession as saveSessionToCloud } from '../services/session.service';
+import { unlockAchievement } from '../services/stats.service';
+import { UserMenu } from '../components/auth/UserMenu';
 
 export default function PracticePage() {
   const { navigate } = useHashRoute();
@@ -95,6 +98,8 @@ export default function PracticePage() {
 
       if (newAchievement) {
         setCurrentAchievement(newAchievement);
+        // Best-effort cloud sync - safe to call even when offline
+        void unlockAchievement(newAchievement.id);
       }
 
       // Save session stats for progress dashboard
@@ -105,6 +110,9 @@ export default function PracticePage() {
         duration,
         bestScore: sessionData.maxScore,
       });
+
+      // Best-effort cloud sync (queues to localStorage if offline)
+      void saveSessionToCloud(sessionData);
 
       // Only show report if there was actual activity
       if (sessionData.totalFrames > 0) {
@@ -282,11 +290,8 @@ export default function PracticePage() {
               isActive={isBreathingActive}
               onToggle={() => setIsBreathingActive(!isBreathingActive)}
             />
+            <UserMenu />
             <DarkModeToggle />
-            <div className="text-sm text-pink-600 dark:text-pink-400 hidden lg:flex items-center gap-2">
-              <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-              Privacy Protected
-            </div>
           </div>
         </motion.header>
 
